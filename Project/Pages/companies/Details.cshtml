@@ -1,0 +1,387 @@
+﻿@page
+@model Companies.Pages.companies.DetailsModel
+@{
+    Layout = "Shared/_Layout";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-auto"><a href="/companies">Company details</a></div>
+        <div class="col"><span id="company_name"></span></div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row">
+        <div class="col">&nbsp;</div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <div class="row">
+
+                <div class="col-md-auto">
+
+                    <div class="card details_card">
+                        <div class="card-body">
+                            <div class="row mg1">
+                                <div class="col-md-auto title"><b>Info</b></div>
+                                <div class="col title"></div>
+                                <div class="col-md-auto title">
+                                    <i id="info_edit" class="fa fa-check fa-1x" aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <div class="row mg1 align-middle">
+                                <div class="col col-left">ID:</div>
+                                <div class="col">
+                                    <input id="comp_id" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="row mg1 align-middle">
+                                <div class="col col-left">Name:</div>
+                                <div class="col">
+                                    <input id="comp_name" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="row mg1">
+                                <div class="col col-left">Address:</div>
+                                <div class="col">
+                                    <input id="comp_address" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="row mg1">
+                                <div class="col col-left">City:</div>
+                                <div class="col">
+                                    <input id="comp_city" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="row mg1">
+                                <div class="col col-left">State:</div>
+                                <div class="col">
+                                    <input id="comp_state" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="row mg1">
+                                <div class="col col-left">Tel:</div>
+                                <div class="col">
+                                    <input id="comp_tel" type="text" value="" />
+                                </div>
+                            </div>
+
+                            <div class="" style="text-align: right;">
+                                <span id="info_result"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-auto">
+                    <div class="card details_card">
+                        <div class="card-body">
+
+                            <div class="row mg1">
+                                <div class="col-md-auto title"><b>History</b></div>
+                                <div class="col title"></div>
+                                <div class="col-md-auto title">
+                                    <a onclick="fill_history();"><i class="fa fa-refresh fa-1x" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="table_header">
+                                                <th scope="col">Order date</th>
+                                                <th scope="col">Store City</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="history_table">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-auto">
+                    <div class="card details_card">
+                        <div class="card-body">
+
+                            <div class="row mg1">
+                                <div class="col-md-auto title"><b>Notes</b></div>
+                                <div class="col title"></div>
+                                <div class="col-md-auto title">
+                                    <a onclick="add_note();">
+                                        <i class="fa fa-plus fa-1x" aria-hidden="true"></i>
+                                    </a>
+                                    <a onclick="fill_notes();">
+                                        <i class="fa fa-refresh fa-1x" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="table_header">
+                                                <th scope="col">Invoice #</th>
+                                                <th scope="col">Employee</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="notes_table"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-auto">
+                    <div class="card details_card">
+                        <div class="card-body">
+
+                            <div class="row mg1">
+                                <div class="col-md-auto title"><b>Employees</b></div>
+                                <div class="col title"></div>
+                                <div class="col-md-auto title">
+                                    <a onclick="add_employee();">
+                                        <i class="fa fa-plus fa-1x" aria-hidden="true"></i>&nbsp;
+                                    </a>
+                                    <a onclick="fill_employees();">
+                                        <i class="fa fa-refresh fa-1x" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="table_header">
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="emp_table"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-auto">
+
+                    <div class="card details_card">
+                        <div class="card-body">
+                            
+                            <div class="row mg1">
+                                <div class="col-md-auto title"></div>
+                                <div class="col title"></div>
+                                <div class="col-md-auto title">
+                                    <i id="emp_edit" class="fa fa-check fa-1x" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="row mg1 align-middle">
+                                <div class="col col-left">First Name:</div>
+                                <div class="col">
+                                    <input id="emp_id" type="hidden" value="" />
+                                    <input id="emp_first" type="text" value="" />
+                                </div>
+                            </div>
+                            
+                            <div class="row mg1 align-middle">
+                                <div class="col col-left">Last Name:</div>
+                                <div class="col">
+                                    <input id="emp_last" type="text" value="" />
+                                </div>
+                            </div>
+                            
+                            <div class="row mg1">
+                                <div class="col col-left">Title:</div>
+                                <div class="col">
+                                    <select class="titles" id="emp_title"></select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mg1">
+                                <div class="col col-left">Birth Date:</div>
+                                <div class="col">
+                                    <input id="emp_dob" type="text" value="" />
+                                </div>
+                            </div>
+                            
+                            <div class="row mg1">
+                                <div class="col col-left">Position:</div>
+                                <div class="col">
+                                    <select class="positions" id="emp_position"></select>
+                                </div>
+                            </div>
+
+                            <div class="" style="text-align: right;">
+                                <span id="emp_result"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODALs -->
+
+<!-- NOTE -->
+
+<div id="addNewNote" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="addNewNoteForm">
+
+                    <div class="col">
+                        <input id="note_comp" name="company" type="hidden" value="" />
+                    </div>
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">Inovice ID</div>
+                        <div class="col">
+                            <input name="invoice" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">Employee</div>
+                        <div class="col">
+                            <select id="employees" name="employee"></select>
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Store City</div>
+                        <div class="col">
+                            <input name="city" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Order Date</div>
+                        <div class="col">
+                            <input name="date" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="" style="text-align: right;">
+                        <span id="note_result"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EMPLOYEE -->
+
+<div id="addNewEmployee" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="addNewEmployeeForm">
+
+                    <div class="col">
+                        <input id="emp_comp" name="company" type="hidden" value="" />
+                    </div>
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">First:</div>
+                        <div class="col">
+                            <input name="first" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">Last:</div>
+                        <div class="col">
+                            <input name="last" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Title</div>
+                        <div class="col">
+                            <select class="titles" name="title"></select>
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Position</div>
+                        <div class="col">
+                            <select class="positions" name="position"></select>
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Date of birth</div>
+                        <div class="col">
+                            <input name="dob" type="text" value="" />
+                        </div>
+                    </div>
+
+
+                    <div class="" style="text-align: right;">
+                        <span id="new_emp_result"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/states.js"></script>
+<script src="/js/details.js"></script>

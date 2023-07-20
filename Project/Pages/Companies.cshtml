@@ -1,0 +1,99 @@
+﻿@page
+@model Companies.Pages.Companies
+@{
+    Layout = "Shared/_Layout";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-auto">Companies</div>
+        <div class="col"></div>
+        <div class="col-md-auto">
+            <i id="addNewItem" class="fa fa-plus fa-2x" aria-hidden="true"></i>
+            <i id="editItem" class="fa fa-pencil-square fa-2x" aria-hidden="true"></i>
+            <div><span id="edit_info"></span></div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table_header">
+                    <th scope="col">Company Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Phone</th>
+                </tr>
+            </thead>
+            <tbody id="table_content">
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="addNewCompany" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Company</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="addNewItemForm">
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">Name</div>
+                        <div class="col">
+                            <input name="name" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1 align-middle">
+                        <div class="col col-left">Address</div>
+                        <div class="col">
+                            <input name="address" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">City</div>
+                        <div class="col">
+                            <input name="city" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">State</div>
+                        <div class="col">
+                            <select id="states" name="state"></select>
+                        </div>
+                    </div>
+
+                    <div class="row mg1">
+                        <div class="col col-left">Tel</div>
+                        <div class="col">
+                            <input name="tel" type="text" value="" />
+                        </div>
+                    </div>
+
+                    <div class="" style="text-align: right;">
+                        <span id="add_result"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/states.js"></script>
+<script src="/js/companies.js"></script>

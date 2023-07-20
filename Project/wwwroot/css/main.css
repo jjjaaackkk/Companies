@@ -1,0 +1,73 @@
+﻿#content {
+    padding: 1em;
+}
+
+.table.table-bordered {
+    text-align: left;
+}
+
+.table_header th {
+    color: lightgrey;
+    font-weight: normal;
+}
+
+
+.border_less {
+    border-bottom: none;
+    border-top: none;
+}
+
+.border_last {
+    border-top: none;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.card.details_card {
+    width: 26em;
+    min-height: 30em;
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+
+.row.mg1 {
+    margin: 1em;
+    align-items: center;
+}
+
+.col.col-left {
+    text-align: left;
+}
+
+input, select {
+    border-radius: 4px;
+    border: 1px solid lightgrey;
+    padding: 0.5em;
+}
+
+select {
+    width: 200px;
+}
+
+.td-right {
+    text-align: right;
+}
+
+.td-center {
+    text-align: center;
+}

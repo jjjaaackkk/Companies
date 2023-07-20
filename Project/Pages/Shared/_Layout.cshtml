@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @Html.Partial("_Header.cshtml")
+</head>
+
+<body>
+    <main role="main">
+        
+        <!-- Main Content -->
+        <div id="content">@RenderBody()</div>
+        
+        <!-- Footer -->
+        @Html.Partial("_Footer.cshtml")
+
+    </main>
+</body>
+</html>
