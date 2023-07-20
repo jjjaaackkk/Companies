@@ -88,14 +88,8 @@ app.MapPut("/api/v1/company/{id}", async (context) =>
     }
     else if (!ser.Parse(ref input))
     {
-        if (ser.Error == "no data")
-        {
-            result = ser.Error;
-        }
-        else
-        {
-            result = ser.Error;
-        }
+        context.Response.StatusCode = 400;
+        result = ser.Error;
     }
     else
     {
@@ -104,6 +98,7 @@ app.MapPut("/api/v1/company/{id}", async (context) =>
 
         if (comp == null)
         {
+            context.Response.StatusCode = 404;
             result = "not found";
         }
         else

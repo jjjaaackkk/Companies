@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Companies\\Companies.csproj": {}
+    "D:\\Companies\\Project\\Companies.csproj": {}
   },
   "projects": {
-    "D:\\Companies\\Companies.csproj": {
+    "D:\\Companies\\Project\\Companies.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Companies\\Companies.csproj",
+        "projectUniqueName": "D:\\Companies\\Project\\Companies.csproj",
         "projectName": "Companies",
-        "projectPath": "D:\\Companies\\Companies.csproj",
+        "projectPath": "D:\\Companies\\Project\\Companies.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Companies\\obj\\",
+        "outputPath": "D:\\Companies\\Project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",

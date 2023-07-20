@@ -9,37 +9,37 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Companies
 build_property.RootNamespace = Companies
-build_property.ProjectDir = D:\Companies\
+build_property.ProjectDir = D:\Companies\Project\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Companies
+build_property.MSBuildProjectDirectory = D:\Companies\Project
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Companies/Pages/Companies.cshtml]
+[D:/Companies/Project/Pages/Companies.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcGFuaWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/companies/Details.cshtml]
+[D:/Companies/Project/Pages/companies/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcY29tcGFuaWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/Index.cshtml]
+[D:/Companies/Project/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/Shared/_Footer.cshtml]
+[D:/Companies/Project/Pages/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/Shared/_Header.cshtml]
+[D:/Companies/Project/Pages/Shared/_Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/Shared/_Layout.cshtml]
+[D:/Companies/Project/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Companies/Pages/_ViewImports.cshtml]
+[D:/Companies/Project/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
