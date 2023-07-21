@@ -11,7 +11,7 @@ namespace Companies
             {
                 var comps = await db.Companies.ToListAsync();
 
-                if (!comps.Any()) return Results.Text("empty");
+                if (!comps.Any()) return Results.StatusCode(404);
 
                 return Results.Json(comps);
             });
@@ -45,7 +45,7 @@ namespace Companies
             {
                 var comp = await db.Companies.FindAsync(id);
 
-                if (comp is null) return Results.StatusCode(202);
+                if (comp is null) return Results.StatusCode(404);
 
                 return Results.Json(comp);
             });

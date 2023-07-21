@@ -27,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 app.UseRouting();
 
 
-// minimal API v1
+// API
 app.MapGroup("/api/v1")
     .MapAPI()
     .WithTags("Public");
