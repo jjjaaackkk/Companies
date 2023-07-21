@@ -5,21 +5,28 @@ async function fetch_api(url)
     return response.json();
 }
 
-async function send_ajax(url, metod, data = 0)
-{
+async function send_json_ajax(url, metod, data) {
     var response;
 
     await $.ajax({
         url: url,
         type: metod,
-        data: data,
-        success: function (result) {
-            response = result;
-        },
-        fail: function (xhr, status, error) {
-            response = status;
-        }
-    });
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        traditional: true
+    })
+        .done(function () {
+            response = true;
+        })
+        .fail(function (data, textStatus, xhr) {
+            response = textStatus;
+        })
+        .always(function () {
+            if (response == "error")
+            {
+                alert('Bad Response!');
+            }
+        });
 
     return response;
 }
@@ -178,7 +185,7 @@ async function fill_notes()
         if (emp === 0) continue;
 
         var trash = `<a onclick="handle_note_remove(${n.id});"><i class="fa fa-trash fa-1x" aria-hidden="true"></i></a>`;
-        html += `<tr><td scope="row" class="td-right">${n.invoidId}</td><td>${emp.first} ${emp.last}</td><td class="td-center">${trash}</td></tr>`;
+        html += `<tr><td scope="row" class="td-right">${n.invoiceId}</td><td>${emp.first} ${emp.last}</td><td class="td-center">${trash}</td></tr>`;
     }
     $('#notes_table').html(html);
 }
@@ -230,47 +237,18 @@ async function add_employee()
 }
 
 timeOut = 4000;
-async function handle_edit(url, ser, output)
-{
-    var result = await send_ajax(url, 'PUT', ser);
 
-    if (result == "success") {
+async function handle_edit(url, data, output)
+{
+    var result = await send_json_ajax(url, 'PUT', data)
+
+    if (result) {
         output
             .text("Success!")
             .attr('class', 'alert alert-success')
             .show()
             .fadeOut(timeOut);
         return true;
-    }
-    else {
-        output
-            .text("Failure: " + result)
-            .attr('class', 'alert alert-danger')
-            .show()
-            .fadeOut(timeOut);
-        return false;
-    }
-}
-
-async function handle_new(url, ser, output)
-{
-    var result = await send_ajax(url, 'POST', ser);
-
-    if (result == "success") {
-        output
-            .text("Success!")
-            .attr('class', 'alert alert-success')
-            .show()
-            .fadeOut(timeOut);
-        return true;
-    }
-    else {
-        output
-            .text("Failure: " + result)
-            .attr('class', 'alert alert-danger')
-            .show()
-            .fadeOut(timeOut);
-        return false;
     }
 }
 
@@ -289,25 +267,27 @@ function fill_select(values, el)
     $(el).html(html);
 }
 
-async function handle_add_note(url, data, output)
+async function handle_add_note(url, data)
 {
-    var result = await handle_new(url, data, output);
+    var result = await send_json_ajax(url, 'POST', data);
 
     if (result)
     {
         fill_history();
         fill_notes();
+        $('#addNewNote').modal('hide');
     }
 }
 
-async function handle_add_employee(url, data, output)
+async function handle_add_employee(url, data)
 {
-    var result = await handle_new(url, data, output);
+    var result = await send_json_ajax(url, 'POST', data);
 
     if (result)
     {
         fill_employees();
         load_first_employee();
+        $('#addNewEmployee').modal('hide');
     }
 }
 
@@ -322,6 +302,26 @@ async function prepare_page_data()
 
 }
 
+function str_to_date(value)
+{
+    if (value.length < 5) return '';
+
+    var d = value.split('/');
+
+    if (d[0].length == 1) d[0] = `0${d[0]}`;
+    if (d[1].length == 1) d[1] = `0${d[1]}`;
+
+    return `${d[2]}-${d[0]}-${d[1]}T00:00:00`;
+}
+
+function form_to_obj(target)
+{
+    var formData = new FormData(target);
+    var formDataObj = {};
+    formData.forEach((value, key) => (formDataObj[key] = value));
+    return formDataObj;
+}
+
 $(document).ready(function ()
 {
     prepare_page_data();
@@ -331,6 +331,10 @@ $(document).ready(function ()
     fill_employees();
     load_first_employee();
 
+    function clean_phone(str) {
+        str = str.replace(/[^\d]/g, '');
+    }
+
     $(document).on('click', '#info_edit', function()
     {
         var id = get_id();
@@ -339,14 +343,37 @@ $(document).ready(function ()
         var address = $('#comp_address').val();
         var city = $('#comp_city').val();
         var state = $('#comp_state').val();
-        var code = get_state_code(state).toUpperCase();
+        var code = get_state_code(state)
+
+        if (code) code.toUpperCase();
+
         var tel = $('#comp_tel').val();
 
         var url = `/api/v1/company/${id}`;
-        var ser = `name=${name}&address=${address}&city=${city}&state=${code}&tel=${tel}`;
         var output = $('#info_result');
 
-        handle_edit(url, ser, output);
+        var data = {
+            name: name,
+            address: address,
+            city: city,
+            state: code,
+            tel: tel
+        }
+
+        var dataCheckResult = validate_data('c', data);
+        if (dataCheckResult != 'ok') {
+            output
+                .text(`Error: ${dataCheckResult}`)
+                .attr('class', 'alert alert-danger')
+                .show()
+                .fadeOut(timeOut);
+        }
+        else {
+            // Clean Phone number
+            tel = clean_phone(tel);
+
+            handle_edit(url, data, output);
+        }
     });
 
     $(document).on('click', '#emp_edit', function ()
@@ -354,15 +381,35 @@ $(document).ready(function ()
         var id = $('#emp_id').val();
         var first = $('#emp_first').val();
         var last = $('#emp_last').val();
-        var title = $('#emp_title').val();
+        var titleId = $('#emp_title').val();
         var dob = $('#emp_dob').val();
-        var position = $('#emp_position').val();
+        var positionId = $('#emp_position').val();
 
         var url = `/api/v1/employee/${id}`;
-        var ser = `first=${first}&last=${last}&title=${title}&dob=${dob}&position=${position}`;
         var output = $('#emp_result');
 
-        handle_edit(url, ser, output);
+        var data = {
+            first: first,
+            last: last,
+            titleId: titleId,
+            dob: dob,
+            positionId: positionId
+        }
+
+        var dataCheckResult = validate_data('e', data);
+        if (dataCheckResult != 'ok') {
+            output
+                .text(`Error: ${dataCheckResult}`)
+                .attr('class', 'alert alert-danger')
+                .show()
+                .fadeOut(timeOut);
+        }
+        else {
+            // Let's correct date format
+            data.dob = str_to_date(dob);
+
+            handle_edit(url, data, output);
+        }
     });
 
     $(document).on("submit", "#addNewNoteForm", function (event)
@@ -372,10 +419,24 @@ $(document).ready(function ()
         $('#note_comp').val(get_id());
 
         var url = `/api/v1/note`;
-        var ser = $(this).serialize();
+        var data = form_to_obj(event.target);
         var output = $('#note_result');
 
-        handle_add_note(url, ser, output);
+        var dataCheckResult = validate_data('n', data);
+        if (dataCheckResult != 'ok') {
+            output
+                .text(`Error: ${dataCheckResult}`)
+                .attr('class', 'alert alert-danger')
+                .show()
+                .fadeOut(timeOut);
+        }
+        else
+        {
+            // Let's correct date format
+            data.orderDate = str_to_date(data.orderDate);
+
+            handle_add_note(url, data);
+        }
     });
 
     $(document).on("submit", "#addNewEmployeeForm", function (event) {
@@ -384,9 +445,23 @@ $(document).ready(function ()
         $('#emp_comp').val(get_id());
 
         var url = `/api/v1/employee`;
-        var ser = $(this).serialize();
+        var data = form_to_obj(event.target);
         var output = $('#new_emp_result');
 
-        handle_add_employee(url, ser, output);
+        var dataCheckResult = validate_data('e', data);
+        if (dataCheckResult != 'ok') {
+            output
+                .text(`Error: ${dataCheckResult}`)
+                .attr('class', 'alert alert-danger')
+                .show()
+                .fadeOut(timeOut);
+        }
+        else
+        {
+            // Let's correct date format
+            data.dob = str_to_date(data.dob);
+
+            handle_add_employee(url, data);
+        }
     });
 });

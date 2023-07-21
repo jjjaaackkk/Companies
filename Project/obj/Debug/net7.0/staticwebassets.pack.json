@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\js\\states.js"
     },
     {
+      "Id": "D:\\Companies\\Project\\wwwroot\\js\\validate.js",
+      "PackagePath": "staticwebassets\\js\\validate.js"
+    },
+    {
       "Id": "D:\\Companies\\Project\\wwwroot\\lib\\bootstrap\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\css\\bootstrap-grid.css"
     },

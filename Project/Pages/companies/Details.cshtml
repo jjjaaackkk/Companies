@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="row mg1">
-                                <div class="col col-left">Tel:</div>
+                                <div class="col col-left">Phone:</div>
                                 <div class="col">
                                     <input id="comp_tel" type="text" value="" />
                                 </div>
@@ -271,34 +271,34 @@
                 <form id="addNewNoteForm">
 
                     <div class="col">
-                        <input id="note_comp" name="company" type="hidden" value="" />
+                        <input id="note_comp" name="companyId" type="hidden" value="" />
                     </div>
 
                     <div class="row mg1 align-middle">
                         <div class="col col-left">Inovice ID</div>
                         <div class="col">
-                            <input name="invoice" type="text" value="" />
+                            <input name="invoiceId" type="text" value="" />
                         </div>
                     </div>
 
                     <div class="row mg1 align-middle">
                         <div class="col col-left">Employee</div>
                         <div class="col">
-                            <select id="employees" name="employee"></select>
+                            <select id="employees" name="employeeId"></select>
                         </div>
                     </div>
 
                     <div class="row mg1">
                         <div class="col col-left">Store City</div>
                         <div class="col">
-                            <input name="city" type="text" value="" />
+                            <input name="storeCity" type="text" value="" />
                         </div>
                     </div>
 
                     <div class="row mg1">
                         <div class="col col-left">Order Date</div>
                         <div class="col">
-                            <input name="date" type="text" value="" />
+                            <input name="orderDate" type="text" value="" />
                         </div>
                     </div>
 
@@ -329,7 +329,7 @@
                 <form id="addNewEmployeeForm">
 
                     <div class="col">
-                        <input id="emp_comp" name="company" type="hidden" value="" />
+                        <input id="emp_comp" name="companyId" type="hidden" value="" />
                     </div>
 
                     <div class="row mg1 align-middle">
@@ -349,14 +349,14 @@
                     <div class="row mg1">
                         <div class="col col-left">Title</div>
                         <div class="col">
-                            <select class="titles" name="title"></select>
+                            <select class="titles" name="titleId"></select>
                         </div>
                     </div>
 
                     <div class="row mg1">
                         <div class="col col-left">Position</div>
                         <div class="col">
-                            <select class="positions" name="position"></select>
+                            <select class="positions" name="positionId"></select>
                         </div>
                     </div>
 
@@ -384,4 +384,5 @@
 
 
 <script src="/js/states.js"></script>
+<script src="/js/validate.js"></script>
 <script src="/js/details.js"></script>

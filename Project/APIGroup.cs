@@ -7,7 +7,8 @@ namespace Companies
     {
         public static RouteGroupBuilder MapAPI(this RouteGroupBuilder group)
         {
-            group.MapGet("/companies", async (AppDBContext db) =>
+
+           group.MapGet("/companies", async (AppDBContext db) =>
             {
                 var comps = await db.Companies.ToListAsync();
 
@@ -16,29 +17,12 @@ namespace Companies
                 return Results.Json(comps);
             });
 
-            group.MapPost("/company", async (context) =>
+            group.MapPost("/company", async (Company input, AppDBContext db) =>
             {
-                var form = context.Request.Form;
-                var ser = new Serializator(form);
+                db.Companies.Add(input);
+                await db.SaveChangesAsync();
 
-                var comp = new Company();
-                var result = "";
-
-                if (!ser.Parse(ref comp))
-                {
-                    context.Response.StatusCode = 400;
-                    result = ser.Error;
-                }
-                else
-                {
-                    var db = context.RequestServices.GetService<AppDBContext>();
-                    db.Add(comp);
-                    await db.SaveChangesAsync();
-                    context.Response.StatusCode = 201;
-                    result = "success";
-                }
-
-                await context.Response.WriteAsync(result);
+                return Results.StatusCode(201);
             });
 
             group.MapGet("/company/{id}", async (AppDBContext db, int id) =>
@@ -50,51 +34,22 @@ namespace Companies
                 return Results.Json(comp);
             });
 
-            group.MapPut("/company/{id}", async (context) =>
+            group.MapPut("/company/{id}", async (int id, Company input, AppDBContext db) =>
             {
-                var _id = context.Request.Path.ToString().Split('/')[4];
-                var id = 0;
-                int.TryParse(_id, out id);
 
-                var form = context.Request.Form;
-                var ser = new Serializator(form);
+                var comp = await db.Companies.FindAsync(id);
 
-                var input = new Company();
-                var result = "";
+                if (comp is null) return Results.StatusCode(404);
 
-                if (id == 0)
-                {
-                    result = "no id!";
-                }
-                else if (!ser.Parse(ref input))
-                {
-                    context.Response.StatusCode = 400;
-                    result = ser.Error;
-                }
-                else
-                {
-                    var db = context.RequestServices.GetService<AppDBContext>();
-                    var comp = await db.Companies.FindAsync(id);
+                comp.Name = input.Name;
+                comp.Address = input.Address;
+                comp.City = input.City;
+                comp.State = input.State;
+                comp.Tel = input.Tel;
 
-                    if (comp == null)
-                    {
-                        context.Response.StatusCode = 404;
-                        result = "not found";
-                    }
-                    else
-                    {
-                        comp.Name = input.Name;
-                        comp.Address = input.Address;
-                        comp.City = input.City;
-                        comp.State = input.State.ToUpper();
-                        comp.Tel = input.Tel;
+                await db.SaveChangesAsync();
 
-                        await db.SaveChangesAsync();
-                        result = "success";
-                    }
-                }
-
-                await context.Response.WriteAsync(result);
+                return Results.Ok("succcess");
             });
 
             group.MapGet("/company/{id}/employees", async (AppDBContext db, int id) =>
@@ -115,29 +70,12 @@ namespace Companies
                 return Results.Json(notes);
             });
 
-            group.MapPost("/employee", async (context) =>
+            group.MapPost("/employee", async (Employee input, AppDBContext db) =>
             {
-                var form = context.Request.Form;
-                var ser = new Serializator(form);
+                db.Employees.Add(input);
+                await db.SaveChangesAsync();
 
-                var emp = new Employee();
-                var result = "";
-
-                if (!ser.Parse(ref emp))
-                {
-                    context.Response.StatusCode = 400;
-                    result = ser.Error;
-                }
-                else
-                {
-                    var db = context.RequestServices.GetService<AppDBContext>();
-                    db.Add(emp);
-                    await db.SaveChangesAsync();
-                    context.Response.StatusCode = 201;
-                    result = "success";
-                }
-
-                await context.Response.WriteAsync(result);
+                return Results.StatusCode(201);
             });
 
             group.MapGet("/employee/{id}", async (AppDBContext db, int id) =>
@@ -149,54 +87,21 @@ namespace Companies
                 return Results.Json(emp);
             });
 
-            group.MapPut("/employee/{id}", async (context) =>
+            group.MapPut("/employee/{id}", async (int id, Employee input, AppDBContext db) =>
             {
-                var _id = context.Request.Path.ToString().Split('/')[4];
-                var id = 0;
+                var emp = await db.Employees.FindAsync(id);
 
-                int.TryParse(_id, out id);
+                if (emp is null) return Results.StatusCode(404);
 
-                var form = context.Request.Form;
-                var ser = new Serializator(form);
+                emp.First = input.First;
+                emp.Last = input.Last;
+                emp.DOB = input.DOB;
+                emp.TitleId = input.TitleId;
+                emp.PositionId = input.PositionId;
 
-                var db = context.RequestServices.GetService<AppDBContext>();
+                await db.SaveChangesAsync();
 
-                var input = new Employee();
-                var result = "";
-
-                if (id == 0)
-                {
-                    context.Response.StatusCode = 400;
-                    result = "invalid id!";
-                }
-                else if (!ser.Parse(ref input))
-                {
-                    context.Response.StatusCode = 400;
-                    result = ser.Error;
-                }
-                else
-                {
-                    var emp = await db.Employees.FindAsync(id);
-
-                    if (emp == null)
-                    {
-                        context.Response.StatusCode = 404;
-                        result = "not found";
-                    }
-                    else
-                    {
-                        emp.First = input.First;
-                        emp.Last = input.Last;
-                        emp.TitleId = input.TitleId;
-                        emp.DOB = input.DOB;
-                        emp.PositionId = input.PositionId;
-
-                        await db.SaveChangesAsync();
-                        result = "success";
-                    }
-                }
-
-                await context.Response.WriteAsync(result);
+                return Results.Ok("succcess");
             });
 
             group.MapDelete("/employee/{id}", async (AppDBContext db, int id) =>
@@ -211,29 +116,12 @@ namespace Companies
                 return Results.StatusCode(404);
             });
 
-            group.MapPost("/note", async (context) =>
+            group.MapPost("/note", async (Note input, AppDBContext db) =>
             {
-                var form = context.Request.Form;
-                var ser = new Serializator(form);
+                db.Notes.Add(input);
+                await db.SaveChangesAsync();
 
-                var note = new Note();
-                var result = "";
-
-                if (!ser.Parse(ref note))
-                {
-                    context.Response.StatusCode = 400;
-                    result = ser.Error;
-                }
-                else
-                {
-                    var db = context.RequestServices.GetService<AppDBContext>();
-                    db.Add(note);
-                    await db.SaveChangesAsync();
-                    context.Response.StatusCode = 201;
-                    result = "success";
-                }
-
-                await context.Response.WriteAsync(result);
+                return Results.StatusCode(201);
             });
 
             group.MapDelete("/note/{id}", async (AppDBContext db, int id) =>

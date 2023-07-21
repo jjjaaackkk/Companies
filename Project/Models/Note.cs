@@ -11,7 +11,7 @@ namespace Companies.Models
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
 
-        public int InvoidId { get; set; }
+        public int InvoiceId { get; set; }
 
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }

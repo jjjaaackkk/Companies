@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "N4lJAGMZXeKzWv2EhvjdHRoV54L8q0gMjuZa3mjMX8w=",
+  "Hash": "kyCJSjcqHe0qu65Nrr5F4DvgD3/mTD+ch9YA9Zx4MHw=",
   "Source": "Companies",
   "BasePath": "_content/Companies",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\states.js"
+    },
+    {
+      "Identity": "D:\\Companies\\Project\\wwwroot\\js\\validate.js",
+      "SourceId": "Companies",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Companies\\Project\\wwwroot\\",
+      "BasePath": "_content/Companies",
+      "RelativePath": "js/validate.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\validate.js"
     },
     {
       "Identity": "D:\\Companies\\Project\\wwwroot\\lib\\bootstrap\\css\\bootstrap.css",

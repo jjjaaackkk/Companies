@@ -558,7 +558,7 @@ namespace Companies.Models
                     {
                         Id = 1,
                         CompanyId = 1,
-                        InvoidId = 35703,
+                        InvoiceId = 35703,
                         EmployeeId = 5, // Harv
                         StoreCity = "Las Vegas",
                         OrderDate = new DateTime(2013, 11, 12),
@@ -567,7 +567,7 @@ namespace Companies.Models
                     {
                         Id = 2,
                         CompanyId = 1,
-                        InvoidId = 35711,
+                        InvoiceId = 35711,
                         EmployeeId = 2, // Jim
                         StoreCity = "Las Vegas",
                         OrderDate = new DateTime(2013, 11, 14),
@@ -576,7 +576,7 @@ namespace Companies.Models
                     {
                         Id = 3,
                         CompanyId = 1,
-                        InvoidId = 35714,
+                        InvoiceId = 35714,
                         EmployeeId = 5, // Harv
                         StoreCity = "San Jose",
                         OrderDate = new DateTime(2013, 11, 18),
@@ -585,7 +585,7 @@ namespace Companies.Models
                     {
                         Id = 4,
                         CompanyId = 1,
-                        InvoidId = 35983,
+                        InvoiceId = 35983,
                         EmployeeId = 7, // Todd
                         StoreCity = "Denver",
                         OrderDate = new DateTime(2013, 11, 22),
@@ -594,7 +594,7 @@ namespace Companies.Models
                     {
                         Id = 5,
                         CompanyId = 1,
-                        InvoidId = 36987,
+                        InvoiceId = 36987,
                         EmployeeId = 8, // Clark
                         StoreCity = "Seattle",
                         OrderDate = new DateTime(2013, 11, 30),
@@ -603,7 +603,7 @@ namespace Companies.Models
                     {
                         Id = 6,
                         CompanyId = 1,
-                        InvoidId = 38466,
+                        InvoiceId = 38466,
                         EmployeeId = 5, // Harv
                         StoreCity = "San Jose",
                         OrderDate = new DateTime(2013, 12, 1),

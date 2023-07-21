@@ -57,9 +57,17 @@ function get_states()
 
 function get_state(code)
 {
+    if ('undefined' === code) return ''
+
     code = code.toLowerCase();
     var states = get_states();
-    return states[code]
+
+    try {
+        return states[code]
+    }
+    catch (e) {
+        return ''
+    }
 }
 
 function getKeyByValue(object, value)

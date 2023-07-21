@@ -13,13 +13,20 @@ async function add_company(data)
         type: "POST",
         url: "/api/v1/company",
         async: true,
-        data: data
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        traditional: true
     })
-        .done(function (msg) {
-            response = msg;
+        .done(function () {
+            response = true;
         })
-        .fail(function (xhr, status, error) {
-            response = status;
+        .fail(function (data, textStatus, xhr) {
+            response = textStatus;
+        })
+        .always(function () {
+            if (response == "error") {
+                alert('Bad Response!');
+            }
         });
 
     return response;
@@ -60,31 +67,36 @@ function load_modal_states()
 
 timeOut = 6000;
 
+function form_to_obj(target) {
+    var formData = new FormData(target);
+    var formDataObj = {};
+    formData.forEach((value, key) => (formDataObj[key] = value));
+    return formDataObj;
+}
+
 async function handle_add_new(event)
 {
     event.preventDefault();
 
-    var ser = $(this).serialize();
-    var result = await add_company(ser);
+    var data = form_to_obj(event.target);
     var output = $("#add_result");
 
-    if (result == "success") {
+    var dataCheckResult = validate_data('c', data);
+    if (dataCheckResult != 'ok') {
         output
-            .text(result)
-            .attr('class', 'alert alert-success')
-            .show()
-            .fadeOut(timeOut);
-        fill_main_table();
-        $('#addNewItemForm')[0].reset();
-        return true;
-    }
-    else {
-        output
-            .text("Failure: " + result)
+            .text(`Error: ${dataCheckResult}`)
             .attr('class', 'alert alert-danger')
             .show()
             .fadeOut(timeOut);
-        return false;
+    }
+    else {
+        var result = await add_company(data);
+
+        if (result)
+        {
+            fill_main_table();
+            $('#addNewCompany').modal('hide');
+        }
     }
 }
 
