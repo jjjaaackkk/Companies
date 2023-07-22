@@ -49,7 +49,7 @@ namespace Companies
 
                 await db.SaveChangesAsync();
 
-                return Results.Ok("succcess");
+                return Results.Ok("success");
             });
 
             group.MapGet("/company/{id}/employees", async (AppDBContext db, int id) =>
